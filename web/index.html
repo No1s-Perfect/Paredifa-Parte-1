@@ -1,0 +1,215 @@
+<!--
+ * EIF400 -- Paradigmas de Programacion
+ * @since II Term - 2021
+ * @authors Team 01-10am
+ *  - Andres Alvarez Duran 117520958 
+ *  - Joaquin Barrientos Monge 117440348
+ *  - Oscar Ortiz Chavarria 208260347
+ *  - David Zarate Marin 116770797
+-->
+<!DOCTYPE html>
+
+<head>
+  <title>PAREDIFA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="icon" href="./img/favicon.png">
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-secondary .bg-gradient">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <image class="imagenLogo" src="./img/neg_favicon.png" width="30" height="30"></image>
+        PAREDIFA
+      </a>
+      <div class="d-flex" id="navbarTogglerDemo02">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link text-light" data-bs-toggle="modal" href="#exampleModalToggle">Instructions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" id="about" title="About the authors" viewBox="0 0 16 16" data-bs-toggle="offcanvas"
+              href="#offcanvasExample" aria-controls="offcanvasExample">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" id="offcanvas-body"></div>
+  </div>
+
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+
+      <div class="h-100 col-9">
+
+        <div class="d-flex justify-content-center">
+
+          <div class="d-grid col-2 mx-0 text-center border-start border-2"> <!--alphabetDiv-->
+              <button title="(e.g.: 1, 0)" id="modalAlphabet" class="btn btn-outline-primary btn-sm m-auto" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal">Set alphabet</button>
+          </div>
+          
+          <div class="d-grid col-5 mx-0 text-center border-start border-2"> <!--runInfo-->
+            <input type="text" class="form-control m-auto w-75" id="input-word" placeholder="Testing string">
+            <div class="btn-group-sm mx-auto w-75" role="group">
+              <button class="btn btn-primary" id="run-steps">Run by steps</button>
+              <button class="btn btn-primary" id="run-button">Run continuous</button>
+            </div>
+
+            <div class="btn-group-sm m-auto text-center" id="bySteps">
+              <button class="btn btn-danger m-auto" id="run-prev">⏪ Prev step</button>
+              <button class="btn btn-success m-auto" id="run-next">Next step ⏩</button>
+            </div>
+
+            <div class="runSpinner" id="runSpinner">
+              <h3 class="runningText">Automata is running</h3>
+              <div class="spinner-border text-dark" role="status"></div>
+            </div>
+
+          </div>
+
+          <div class="d-grid col-5 mx-0 text-center border-start border-2"> <!--jsonInputs-->
+            <input type="text" class="form-control m-auto w-75" id="json-area" placeholder="JSON">
+            <div class="btn-group-sm mx-auto w-75" role="group">
+              <button class="btn btn-primary" id="exportJson" value="Download JSON">Download as JSON</button>
+              <button class="btn btn-primary" id="importJson" value="Upload JSON">Upload a JSON</button>
+            </div>
+          </div>
+
+        </div>
+       
+        <div class="d-flex" id="canvasContainer">
+            <canvas id="main-canvas" width="990" height="450"></canvas>
+        </div>
+
+        <div class="row my-2">
+          <div class="col-md-4 ms-auto col-md-4">
+            <button class="btn btn-warning" id="clearScreen" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Clear canvas</button>
+            <button class="btn btn-secondary" id="download-image">Save as png</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="monitor" class="h-100 col-3 mx-auto border-start border-5 mt-4">
+        <div id="error"></div>
+        <div id="results"></div>
+      </div>
+    </div>  
+  </div>
+
+
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalToggleLabel">Instructions</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <br>
+          <b>CREATE STATE (Q key):</b> create a state on the mouse position.<br>
+          <b>SELECT TRANSITION / STATE:</b> left-click on a state or transition.<br>
+          <b>MOVE STATE:</b> hold left-click on a state and move the cursor.<br>
+          <b>CREATE TRANSITION (E key):</b> once a state is selected, press E and select another state.<br>
+          <b>REMOVE TRANSITION / STATE (DEL key):</b> once a state or transition is selected, press DEL to remove
+          it.<br>
+          <b>RENAME STATE (R key):</b> once a state is selected, press R to enter the renaming mode. In the
+          renaming mode, press ENTER to set the state name.<br>
+          <b>SET FINAL STATE (F key):</b> once a state is selected, press F to set it as a final state.<br>
+          <b>SET INITIAL STATE (S key):</b> once a state is selected, press S to set it as the start state.<br>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">WARNING</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to clear screen? Data will be deleted once you press YES.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+          <button type="button" class="btn btn-primary" id="confirmationDataWipe" data-bs-dismiss="modal">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Set alphabet</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="alphabetInput">
+          <input type="text" class="form-control" id="alphabet" placeholder="Alphabet">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modifySettingAlphabet"
+            data-bs-dismiss="modal">Close</button>
+          <button type="button" id="setAlphabet" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Default alphabet</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Alphabet has not been set yet, would you like to use the default alphabet (0, 1)?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="defaultAlphabet" data-bs-dismiss="modal">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="position-fixed top-0 right-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Information message</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        The letter you are trying to add to the transition is not defined in the alphabet.
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+  <script type="module" src="./js/main.mjs"></script>
+</body>
+
+</html>

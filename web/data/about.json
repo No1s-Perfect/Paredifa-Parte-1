@@ -1,0 +1,37 @@
+{
+ "authors": [
+  {
+   "id": "117520958",
+   "name": "Andres Alvarez Duran"
+  },
+  {
+   "id": "117440348",
+   "name": "Joaquin Barrientos Monge"
+  },
+  {
+   "id": "208260347",
+   "name": "Oscar Ortiz Chavarria"
+  },
+  {
+   "id": "116770797",
+   "name": "David Zarate Marin"
+  }
+ ],
+ "team": {
+  "id": "01-10am"
+ },
+ "course": {
+  "id": "EIF400",
+  "crn": "50038",
+  "name": "Paradigmas de Programacion",
+  "professor": "Dr. Carlos Loria-Saenz",
+  "college": "Universidad Nacional de Costa Rica"
+ },
+ "term": {
+  "year": "2021",
+  "id": "II"
+ },
+ "version": {
+  "id": "1.0"
+ }
+}
