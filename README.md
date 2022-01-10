@@ -1,4 +1,4 @@
-<img src="../web/img/favicon.png" align="left" style="width:32px;height:32px"/>
+
 
 # PAREDIFA
 
@@ -77,5 +77,4 @@ The user then can copy and store that JSON in a local file.
 
     
 
-## Declaracion jurada
-> Declaramos de manera jurada que el proyecto entregado fue realizado por el grupo de autores con participación proporcional y balanceada de todos y solo los autores declarados, de manera original y que las fuentes de consulta usadas son las declaradas.
+
